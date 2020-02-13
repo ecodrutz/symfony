@@ -1,0 +1,31 @@
+version: '3.5'
+
+services:
+    mysql:
+        image: mysql:latest
+        command: --default-authentication-plugin=mysql_native_password
+        restart: on-failure
+        volumes: ['mysql:/var/lib/mysql']
+        ports: ['3306:3306']
+        env_file: [sf/.env, sf/.env.local]
+
+    php:
+        build:
+            context: docker/php
+            args:
+                PHP_USER: ${USER}
+        restart: on-failure
+        volumes: ['./sf:/var/www/application']
+        user: ${USER}
+        env_file: [sf/.env, sf/.env.local]
+
+    nginx:
+        build:
+            context: docker/nginx
+        restart: on-failure
+        volumes: ['./sf/public:/var/www/application/public']
+        ports: ['80:80']
+        depends_on: [php]
+
+volumes:
+    mysql:
