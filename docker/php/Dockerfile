@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:8.0-fpm
 
 ARG PHP_USER
 ENV PHP_USER=$PHP_USER
