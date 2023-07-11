@@ -12,11 +12,9 @@ services:
     php:
         build:
             context: docker/php
-            args:
-                PHP_USER: ${USER}
         restart: on-failure
         volumes: ['./sf:/var/www/application']
-        user: ${USER}
+        user: app
         env_file: [sf/.env, sf/.env.local]
 
     nginx:
@@ -24,7 +22,7 @@ services:
             context: docker/nginx
         restart: on-failure
         volumes: ['./sf/public:/var/www/application/public']
-        ports: ['80:80']
+        ports: ['8080:8080']
         depends_on: [php]
 
 volumes:

@@ -1,7 +1,10 @@
-FROM php:8.0-fpm
+FROM php:8.2-fpm
 
-ARG PHP_USER
-ENV PHP_USER=$PHP_USER
+ENV USER_ID=1000
+ENV APP_USER=app
+
+# Add custom user and setup home directory
+RUN adduser -u $USER_ID $APP_USER
 
 RUN apt-get update && apt-get install -yq --no-install-recommends git zip unzip libzip-dev libpng-dev libjpeg-dev libicu-dev
 
