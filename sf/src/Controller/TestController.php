@@ -9,10 +9,10 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/')]
 class TestController
 {
-public function __invoke():Response
-{
-    return new Response(
-        '<html><body>It works</body></html>'
-    );
-}
+    public function __invoke(): Response
+    {
+        return new Response(
+            '<html><body>It works</body></html>'
+        );
+    }
 }
